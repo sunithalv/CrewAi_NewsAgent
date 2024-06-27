@@ -5,3 +5,7 @@ python-dotenv
 streamlit
 crewai
 crewai_tools
+fastapi
+uvicorn
+python-multipart
+Jinja2

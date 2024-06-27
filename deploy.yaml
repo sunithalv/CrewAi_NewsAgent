@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crewaiapp-deploy
+spec:
+  replicas : 2 #Run 2 replicas of pod
+  selector:
+    matchLabels:
+      app: crewaiapp-pod
+  template:
+    metadata:
+      labels:
+        app: crewaiapp-pod
+    spec:
+      containers:
+      - name: mycrewaiappcontainer
+        image: sunithalv/news_report:latest
+        ports:
+        - containerPort: 80
+        env: 
+          - name: GROQ_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: groq-secret
+                key: GROQ_KEY
+          - name: SERPER_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: groq-secret
+                key: SERPER_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysvc-v1
+spec:
+  selector:
+    app: crewaiapp-pod
+  ports:
+    - port: 80 #Service ip port
+      targetPort: 80 #Container port
+      protocol: TCP
+  type: LoadBalancer
+

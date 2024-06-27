@@ -1,16 +1,33 @@
 from crew import crew_news
-import streamlit as st
+from fastapi import FastAPI, Request, Form, Response
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+import json
+import uvicorn
 import os
+app = FastAPI()
 
-## Langsmith tracking
-os.environ["LANGCHAIN_TRACING_V2"]="true"
-os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
+templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-## streamlit framework
+class Body(BaseModel):
+    text: str
 
-st.title('News Report Generation')
-input_text=st.text_input("Search the topic u want")
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
-if st.button("Search") and input_text :
-    result=crew_news.kickoff(inputs={'topic':input_text})
-    st.write(result)
+@app.post("/generate") 
+async def generate_report(input_text: str = Form(...)):  
+    response = crew_news.kickoff(inputs={'topic':input_text})
+    # print(response)
+    # answer = response['result']
+    response_data = jsonable_encoder(json.dumps({"answer": response}))
+    res = Response(response_data)
+    return res
+
+if __name__ == "__main__":
+    uvicorn.run(app,host="0.0.0.0",port=80)

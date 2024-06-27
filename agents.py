@@ -5,11 +5,15 @@ load_dotenv()
 from langchain_groq import ChatGroq
 import os
 
+#get the apikey from kubernetes secrets
+groq_api_key=os.environ["GROQ_API_KEY"]
+
 ## call the gemini models
-llm=ChatGroq(model="llama3-8b-8192",
+llm=ChatGroq(model="gemma-7b-it",
                     verbose=True,
                     temperature=0.5,
-                    groq_api_key=os.getenv("GROQ_API_KEY"))
+                    groq_api_key=groq_api_key
+)
 
 #Define agents with specific role/goal
 researcher = Agent(
