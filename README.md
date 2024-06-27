@@ -1,9 +1,10 @@
 # CrewAi_NewsAgent
 
 ## Overview
-This is a news report generation engine that generates latest news report related to topic provided as input. It uses Crew AI for Research and Writer Agents and SerperDevTool for getting the latest google results. The LLM used is llama3 via the langchain groq platform for faster inference.The input is provided via a Streamlit interface.
+This is a news report generation engine that generates latest news report related to topic provided as input. It uses Crew AI for Research and Writer Agents and SerperDevTool for getting the latest google results. The LLM used is Gemma-7b via the langchain groq platform for faster inference.The input is provided by FastAPI via Jinja2 templates.
 
-![Screenshot 2024-06-19 223152](https://github.com/sunithalv/CrewAi_NewsAgent/assets/28974154/b005a7aa-6142-4575-aaf9-7cc6a2e47bc1)
+
+![Screenshot 2024-06-27 102935](https://github.com/sunithalv/CrewAi_NewsAgent/assets/28974154/a77da03e-bf18-45df-9641-545f5e29a781)
 
 ## Getting Started
 
@@ -38,7 +39,7 @@ This is a news report generation engine that generates latest news report relate
 ### Usage
 To run the API, execute the following command:
    ```bash
-   streamlit run app.py
+   python run app.py
 ```
 
 
