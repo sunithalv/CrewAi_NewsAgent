@@ -1,7 +1,7 @@
 # CrewAi_NewsAgent
 
 ## Overview
-This is a news report generation engine that generates latest news report related to topic provided as input. It uses Crew AI for Research and Writer Agents and SerperDevTool for getting the latest google results. The LLM used is Gemma-7b via the langchain groq platform for faster inference.The input is provided by FastAPI via Jinja2 templates.
+This is a news report generation engine that generates latest news report related to topic provided as input. It uses Crew AI for Research and Writer Agents and SerperDevTool for getting the latest google results. The LLM used is Gemma-7b via the langchain groq platform for faster inference.The input is provided by FastAPI via Jinja2 templates.The application is deployed using Google Kubernetes Engine (GKE)
 
 
 ![Screenshot 2024-06-27 102935](https://github.com/sunithalv/CrewAi_NewsAgent/assets/28974154/a77da03e-bf18-45df-9641-545f5e29a781)
